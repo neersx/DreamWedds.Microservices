@@ -6,7 +6,7 @@ namespace DreamWedds.Services.TemplatesAPI.Repository
 {
     public interface ITemplateRepository
     {
-        IMongoCollection<TemplateMaster> GetTemplateMasterList { get; }
+        Task<IEnumerable<TemplateMaster>> GetTemplatesList();
         Task<TemplateResponseModel> GetTemplateById(int id);
         Task<TemplateResponseModel> GetEmailTemplateByCode(string code);
         Task<string> GetEmailContentByCode(string code);

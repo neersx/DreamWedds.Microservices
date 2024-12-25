@@ -13,14 +13,13 @@ namespace DreamWedds.Services.TemplatesAPI.Repository
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IEnumerable<TemplateMaster>> GetProducts()
+        public async Task<IEnumerable<TemplateMaster>> GetTemplatesList()
         {
             return await _context
                             .Templates
                             .Find(p => p.Status == 1)
                             .ToListAsync();
         }
-        public IMongoCollection<TemplateMaster> GetTemplateMasterList => throw new NotImplementedException();
 
         public Task<string> GetEmailContentByCode(string code)
         {

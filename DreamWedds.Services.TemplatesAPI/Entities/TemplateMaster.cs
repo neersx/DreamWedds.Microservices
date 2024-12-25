@@ -6,8 +6,8 @@ namespace DreamWedds.Services.TemplatesAPI.Entities
     public class TemplateMaster
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public int Type { get; set; } // Wedding, Invitation, Engagement, BirthDay, Email
         public int Status { get; set; }
@@ -35,6 +35,6 @@ namespace DreamWedds.Services.TemplatesAPI.Entities
         public string TemplateCode { get; set; }
         public string TemplateSettings { get; set; }
         public string TemplateTags { get; set; }
-
+        public ICollection<MetaTags> MetaTags { get; set; }
     }
 }
