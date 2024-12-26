@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.Services.AuthAPI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.MessageBus", "DreamWedds.MessageBus\DreamWedds.MessageBus.csproj", "{FD9407E4-6CAA-4A65-9506-6B1F43FB4FDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.Services.OrderAPI", "DreamWedds.Services.OrderAPI\DreamWedds.Services.OrderAPI.csproj", "{3BE276C5-E0EE-4744-8E25-6FC37E182B89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.Services.CouponAPI", "Mango.Services.CouponAPI\DreamWedds.Services.CouponAPI.csproj", "{2B713075-4A0E-43CF-8C55-F9C9E56855F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{FD9407E4-6CAA-4A65-9506-6B1F43FB4FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD9407E4-6CAA-4A65-9506-6B1F43FB4FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD9407E4-6CAA-4A65-9506-6B1F43FB4FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BE276C5-E0EE-4744-8E25-6FC37E182B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE276C5-E0EE-4744-8E25-6FC37E182B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE276C5-E0EE-4744-8E25-6FC37E182B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE276C5-E0EE-4744-8E25-6FC37E182B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B713075-4A0E-43CF-8C55-F9C9E56855F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B713075-4A0E-43CF-8C55-F9C9E56855F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B713075-4A0E-43CF-8C55-F9C9E56855F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B713075-4A0E-43CF-8C55-F9C9E56855F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +70,8 @@ Global
 		{B6098AB5-0B2F-4361-B232-D8ABD949F09F} = {2C71E36D-809B-4460-B9BE-FE1E4F8F7480}
 		{65F40069-B1FC-4A83-875C-90974F4D744D} = {76106DF3-8DD5-47BA-B795-4AABA43C9FF6}
 		{FD9407E4-6CAA-4A65-9506-6B1F43FB4FDB} = {9F540451-E21D-4FCB-9322-52F3D680EEAA}
+		{3BE276C5-E0EE-4744-8E25-6FC37E182B89} = {83A394EA-BD60-4608-8080-08E87BF41F8F}
+		{2B713075-4A0E-43CF-8C55-F9C9E56855F2} = {785BA399-AB38-44CB-AB4E-E74F96FFB9AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E54C99FE-1F84-45F2-835C-57CD5C81F3B6}
