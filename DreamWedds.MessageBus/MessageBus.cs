@@ -11,7 +11,7 @@ namespace DreamWedds.MessageBus
     public class MessageBus : IMessageBus
     {
 
-        private const string connectionString = "";
+        private const string connectionString = "Endpoint=sb://dwshop.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=mZUcpDyGcNer8ciB3S+0VZJtmhHykMglD+ASbElmato=";
         public async Task PublishMessage(object message, string topic_queue_Name)
         {
             await using var client = new ServiceBusClient(connectionString);
