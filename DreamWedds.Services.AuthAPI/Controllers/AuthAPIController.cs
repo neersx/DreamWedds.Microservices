@@ -22,8 +22,6 @@ namespace DreamWedds.Services.AuthAPI.Controllers
             _response = new();
         }
 
-
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDto model)
         {
