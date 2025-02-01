@@ -39,7 +39,7 @@ namespace DreamWedds.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ProductDetails(int productId)
+        public async Task<IActionResult> ProductDetails(string productId)
         {
             ProductDto? model = new();
 

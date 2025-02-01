@@ -23,7 +23,7 @@ namespace DreamWedds.Web.Service
             });
         }
 
-        public async Task<ResponseDto?> DeleteProductsAsync(int id)
+        public async Task<ResponseDto?> DeleteProductsAsync(string id)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
@@ -43,7 +43,7 @@ namespace DreamWedds.Web.Service
 
       
 
-        public async Task<ResponseDto?> GetProductByIdAsync(int id)
+        public async Task<ResponseDto?> GetProductByIdAsync(string id)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
@@ -52,7 +52,7 @@ namespace DreamWedds.Web.Service
             });
         }
 
-        public async Task<ResponseDto?> UpdateProductsAsync(ProductDto productDto)
+        public async Task<ResponseDto?> UpdateProductsAsync(FoodMasterDto productDto)
         {
             return await _baseService.SendAsync(new RequestDto()
             {

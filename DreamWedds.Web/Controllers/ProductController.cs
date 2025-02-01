@@ -58,7 +58,7 @@ namespace DreamWedds.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> ProductDelete(int productId)
+        public async Task<IActionResult> ProductDelete(string productId)
         {
 			ResponseDto? response = await _productService.GetProductByIdAsync(productId);
 
@@ -91,13 +91,13 @@ namespace DreamWedds.Web.Controllers
             return View(productDto);
         }
 
-        public async Task<IActionResult> ProductEdit(int productId)
+        public async Task<IActionResult> ProductEdit(string productId)
         {
             ResponseDto? response = await _productService.GetProductByIdAsync(productId);
 
             if (response != null && response.IsSuccess)
             {
-                ProductDto? model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+                FoodMasterDto? model = JsonConvert.DeserializeObject<FoodMasterDto>(Convert.ToString(response.Result));
                 return View(model);
             }
             else
@@ -108,7 +108,7 @@ namespace DreamWedds.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProductEdit(ProductDto productDto)
+        public async Task<IActionResult> ProductEdit(FoodMasterDto productDto)
         {
             if (ModelState.IsValid)
             {

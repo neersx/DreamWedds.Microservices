@@ -121,13 +121,19 @@ namespace DreamWedds.Web.Controllers
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Name,
                 jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name).Value));
 
+            foreach (var claim in jwt.Claims)
+            {
+                Console.WriteLine($"Claim Type: {claim.Type}, Value: {claim.Value}");
+            }
 
             identity.AddClaim(new Claim(ClaimTypes.Name,
                 jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Email).Value));
-            identity.AddClaim(new Claim(ClaimTypes.Role,
-                jwt.Claims.FirstOrDefault(u => u.Type == "role").Value));
 
-
+            var roleClaim = jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role || u.Type == "role");
+            if (roleClaim != null)
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, roleClaim.Value));
+            }
 
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
