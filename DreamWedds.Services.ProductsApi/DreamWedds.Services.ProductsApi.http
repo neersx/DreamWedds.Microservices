@@ -1,0 +1,6 @@
+@DreamWedds.Services.ProductsApi_HostAddress = http://localhost:5106
+
+GET {{DreamWedds.Services.ProductsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

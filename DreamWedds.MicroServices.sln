@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.Web", "DreamWedd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.GatewaySolution", "DreamWedds.GatewaySolution\DreamWedds.GatewaySolution.csproj", "{D75B1DCF-510B-45BB-A00E-8B5969EE0CF6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{F208B82D-85F1-42FD-B2C0-CD21485D1DE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamWedds.Services.ProductsApi", "DreamWedds.Services.ProductsApi\DreamWedds.Services.ProductsApi.csproj", "{AD15EFD0-10B4-467D-A2AB-38664AF5B096}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +87,10 @@ Global
 		{D75B1DCF-510B-45BB-A00E-8B5969EE0CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D75B1DCF-510B-45BB-A00E-8B5969EE0CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D75B1DCF-510B-45BB-A00E-8B5969EE0CF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD15EFD0-10B4-467D-A2AB-38664AF5B096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD15EFD0-10B4-467D-A2AB-38664AF5B096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD15EFD0-10B4-467D-A2AB-38664AF5B096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD15EFD0-10B4-467D-A2AB-38664AF5B096}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +111,8 @@ Global
 		{CA18A864-6384-41F9-8B16-751DDD62DC11} = {49A82F5A-D88D-4F07-AB8A-F5735C11DBAB}
 		{CF23A788-9224-4064-8E08-3B1C7BF0FBCE} = {D61DE459-5B4E-4E8E-BC18-3695C622AB75}
 		{D75B1DCF-510B-45BB-A00E-8B5969EE0CF6} = {1D888D05-9CBF-49FF-813B-8F9AD9AF5E20}
+		{F208B82D-85F1-42FD-B2C0-CD21485D1DE6} = {2C71E36D-809B-4460-B9BE-FE1E4F8F7480}
+		{AD15EFD0-10B4-467D-A2AB-38664AF5B096} = {F208B82D-85F1-42FD-B2C0-CD21485D1DE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E54C99FE-1F84-45F2-835C-57CD5C81F3B6}
