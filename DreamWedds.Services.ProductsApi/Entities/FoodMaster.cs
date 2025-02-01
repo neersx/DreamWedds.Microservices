@@ -18,7 +18,6 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public string Description { get; set; }
         public string Category { get; set; }
         public int LifeInDays { get; set; }
-        public string FlavourType { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime LastUpdatedOn { get; set; }
@@ -26,9 +25,7 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public decimal Price { get; set; }
         public int? Quantity { get; set; }
         public string Measurement { get; set; }
-        public List<string> Addons { get; set; }
         public double Discount { get; set; }
-        public string Days { get; set; }
         public string Type { get; set; }
         public bool AvailableToday { get; set; }
         public double Ratings { get; set; }
@@ -36,14 +33,11 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public List<Ingredient> Ingredients { get; set; }
         public List<Image> Images { get; set; }
         public List<FoodItem> FoodItems { get; set; }
-        public List<Comment> Comments { get; set; }
     }
 
     public class Ingredient
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]  // ✅ Ensure ObjectId mapping
-        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+        public int Id { get; set; }
 
         public required string Name { get; set; }
         public required string HealthBenefits { get; set; }

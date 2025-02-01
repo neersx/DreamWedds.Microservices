@@ -28,5 +28,32 @@ namespace DreamWedds.Services.ProductsApi.Controllers
             var dishes = await _repository.GetFoodItemsList();
             return Ok(dishes);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateFood([FromBody] FoodMaster food)
+        {
+            if (food == null)
+            {
+                return BadRequest("Invalid food data.");
+            }
+
+            food.CreatedOn = DateTime.UtcNow;
+            food.LastUpdatedOn = DateTime.UtcNow;
+
+            await _repository.CreateAsync(food);
+            return CreatedAtAction(nameof(GetFoodById), new { id = food.Id }, food);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFoodById(string id)
+        {
+            var food = await _repository.GetByIdAsync(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+            return Ok(food);
+        }
+
     }
 }

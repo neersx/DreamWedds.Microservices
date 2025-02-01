@@ -7,7 +7,8 @@ namespace DreamWedds.Services.ProductsApi.Repository
     public interface IFoodRepository
     {
         Task<IEnumerable<FoodMaster>> GetFoodItemsList();
-        Task<FoodMaster> GetFoodDetailsById(string id);
+        Task<FoodMaster> GetByIdAsync(string id);
+        Task CreateAsync(FoodMaster food);
         IMongoCollection<FoodResponseModel> GetFoodByCategory(string category);
 
     }

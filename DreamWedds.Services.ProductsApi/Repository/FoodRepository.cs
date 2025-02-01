@@ -15,12 +15,12 @@ namespace DreamWedds.Services.ProductsApi.Repository
 
             return await _context
                             .Dishes
-                            .Find(p => p.Id != string.Empty)
-                            .ToListAsync();
+                            .Find(food => true).ToListAsync();
         }
 
+        public async Task CreateAsync(FoodMaster food) => await _context.Dishes.InsertOneAsync(food);
 
-        public async Task<FoodMaster> GetFoodDetailsById(string id)
+        public async Task<FoodMaster> GetByIdAsync(string id)
         {
             if (!ObjectId.TryParse(id, out var objectId))
             {
