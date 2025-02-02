@@ -9,7 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IFoodContext, FoodContext>();
+builder.Services.AddScoped<IFoodItemsContext, FoodItemsContext>();
+builder.Services.AddScoped<IIngredientsContext, IngredientsContext>();
+
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<IFoodItemRepository, FoodItemsRepository>();
+builder.Services.AddScoped<IIngredientsRepository, IngredientRepository>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

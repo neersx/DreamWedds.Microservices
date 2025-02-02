@@ -37,7 +37,9 @@ namespace DreamWedds.Services.ProductsApi.Entities
 
     public class Ingredient
     {
-        public int Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]  // ✅ Ensure ObjectId mapping
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         public required string Name { get; set; }
         public required string HealthBenefits { get; set; }
