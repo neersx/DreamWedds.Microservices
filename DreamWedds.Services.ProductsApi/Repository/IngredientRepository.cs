@@ -15,6 +15,12 @@ namespace DreamWedds.Services.ProductsApi.Repository
         //    _ingredientCollection = database.GetCollection<Ingredient>("ingredients");
         //}
 
+        public async Task<List<Ingredient>> GetByIdsAsync(IEnumerable<string> ids)
+        {
+            var filter = Builders<Ingredient>.Filter.In(i => i.Id, ids);
+            return await _context.Ingredients.Find(filter).ToListAsync();
+        }
+
         public async Task<IEnumerable<Ingredient>> GetAllAsync() =>
             await _context.Ingredients.Find(_ => true).ToListAsync();
 

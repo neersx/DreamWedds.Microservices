@@ -12,7 +12,7 @@ builder.Services.AddScoped<IFoodContext, FoodContext>();
 builder.Services.AddScoped<IFoodItemsContext, FoodItemsContext>();
 builder.Services.AddScoped<IIngredientsContext, IngredientsContext>();
 
-builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<IFoodMasterRepository, FoodMasterRepository>();
 builder.Services.AddScoped<IFoodItemRepository, FoodItemsRepository>();
 builder.Services.AddScoped<IIngredientsRepository, IngredientRepository>();
 

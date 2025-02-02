@@ -4,11 +4,11 @@ using MongoDB.Driver;
 
 namespace DreamWedds.Services.ProductsApi.Repository
 {
-    public interface IFoodRepository
+    public interface IFoodMasterRepository
     {
         Task<IEnumerable<FoodMaster>> GetFoodItemsList();
         Task<FoodMaster> GetByIdAsync(string id);
-        Task CreateAsync(FoodMaster food);
+        Task<FoodMaster> CreateAsync(CreateFoodMasterDto food);
         IMongoCollection<FoodResponseModel> GetFoodByCategory(string category);
 
     }

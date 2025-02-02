@@ -9,5 +9,6 @@ namespace DreamWedds.Services.ProductsApi.Repository
         Task CreateAsync(Ingredient ingredient);
         Task UpdateAsync(string id, Ingredient ingredient);
         Task DeleteAsync(string id);
+        Task<List<Ingredient>> GetByIdsAsync(IEnumerable<string> ids);
     }
 }

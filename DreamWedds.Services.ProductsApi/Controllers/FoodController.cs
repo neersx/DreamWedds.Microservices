@@ -2,7 +2,6 @@
 using DreamWedds.Services.ProductsApi.Entities;
 using DreamWedds.Services.ProductsApi.Models;
 using DreamWedds.Services.ProductsApi.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DreamWedds.Services.ProductsApi.Controllers
@@ -11,15 +10,20 @@ namespace DreamWedds.Services.ProductsApi.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodRepository _repository;
+        private readonly IFoodMasterRepository _repository;
+        private readonly IIngredientsRepository _ingredientRepository;
+        //private readonly IRepository<Image> _imageRepository;
+        private readonly IFoodItemRepository _foodItemRepository;
         private readonly ILogger<FoodController> _logger;
         private readonly IMapper _mapper;
         protected ResponseDto _response;
 
-        public FoodController(IFoodRepository repository, ILogger<FoodController> logger,
+        public FoodController(IFoodMasterRepository repository, IIngredientsRepository ingredientRepository, IFoodItemRepository foodItemRepository, ILogger<FoodController> logger,
              IMapper mapper)
         {
             _repository = repository;
+            _ingredientRepository = ingredientRepository;
+            _foodItemRepository = foodItemRepository;
             _logger = logger;
             _mapper = mapper;
             _response = new();
@@ -35,19 +39,14 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateFood([FromBody] FoodMaster food)
+        public async Task<IActionResult> Create([FromBody] CreateFoodMasterDto dto)
         {
-            if (food == null)
-            {
-                return BadRequest("Invalid food data.");
-            }
+            if (dto == null) return BadRequest("Invalid request data");
 
-            food.CreatedOn = DateTime.UtcNow;
-            food.LastUpdatedOn = DateTime.UtcNow;
-
-            await _repository.CreateAsync(food);
-            return CreatedAtAction(nameof(GetFoodById), new { id = food.Id }, food);
+             var foodMaster = await _repository.CreateAsync(dto);
+            return CreatedAtAction(nameof(Create), new { id = foodMaster.Id }, foodMaster);
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFoodById(string id)

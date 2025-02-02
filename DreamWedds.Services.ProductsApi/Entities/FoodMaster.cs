@@ -31,7 +31,7 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public double Ratings { get; set; }
 
         public List<Ingredient> Ingredients { get; set; }
-        public List<Image> Images { get; set; }
+        public List<FoodImage> Images { get; set; }
         public List<FoodItem> FoodItems { get; set; }
     }
 
@@ -45,7 +45,7 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public required string HealthBenefits { get; set; }
     }
 
-    public class Image
+    public class FoodImage
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]  // ✅ Ensure ObjectId mapping
@@ -54,6 +54,16 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public required string Name { get; set; }
         public string? Title { get; set; }
         public string? Url { get; set; }
+
+        public FoodImage()
+        {
+                
+        }
+        public FoodImage(string name)
+        {
+            Title = name;
+            Name = name.Replace(" ", "-").ToLower();
+        }
     }
 
     public class FoodItem
@@ -68,6 +78,7 @@ namespace DreamWedds.Services.ProductsApi.Entities
         public bool AvailableToday { get; set; } = false;
         public string? Weight { get; set; }
         public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
     }
 
     public class Comment
