@@ -6,11 +6,18 @@ using MongoDB.Driver;
 
 namespace DreamWedds.Services.ProductsApi.Repository
 {
-    public class FoodMasterRepository(IFoodContext context) : IFoodMasterRepository
+    public class FoodMasterRepository : IFoodMasterRepository
     {
-        private readonly IFoodContext _context = context ?? throw new ArgumentNullException(nameof(context));
+        private readonly IFoodContext _context;
         private readonly IIngredientsRepository _ingredientRepository;
         private readonly IFoodItemRepository _foodItemRepository;
+
+        public FoodMasterRepository(IFoodContext context, IIngredientsRepository ingredientRepository, IFoodItemRepository foodItemRepository)
+        {
+            _ingredientRepository = ingredientRepository;
+            _foodItemRepository = foodItemRepository;
+            _context = context;
+        }
         public async Task<IEnumerable<FoodMaster>> GetFoodItemsList()
         {
 
