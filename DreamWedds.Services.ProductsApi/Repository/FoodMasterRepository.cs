@@ -27,7 +27,6 @@ namespace DreamWedds.Services.ProductsApi.Repository
         public async Task<FoodMaster> CreateAsync(CreateFoodMasterDto dto)
         {
             var ingredients = await _ingredientRepository.GetByIdsAsync(dto.IngredientIds);
-            //var images = await _imageRepository.GetByIdsAsync(dto.ImageIds);
             var foodItems = await _foodItemRepository.GetByIdsAsync(dto.FoodItemIds);
 
             var foodMaster = new FoodMaster

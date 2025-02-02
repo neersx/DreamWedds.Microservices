@@ -33,7 +33,7 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         public async Task<ActionResult<IList<FoodMaster>>> GetTemplatesList()
         {
             var dishes = await _repository.GetFoodItemsList();
-            _response.Result = _mapper.Map<IEnumerable<FoodModelDto>>(dishes);
+            _response.Result = dishes; // _mapper.Map<IEnumerable<FoodModelDto>>(dishes);
             
             return Ok(_response);
         }
