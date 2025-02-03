@@ -41,51 +41,19 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <label class="form-label">Price</label>
-                <input asp-for="Price" class="form-control" type="number" step="0.01" required />
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Quantity</label>
-                <input asp-for="Quantity" class="form-control" type="number" />
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Measurement</label>
-                <input asp-for="Measurement" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Discount (%)</label>
-                <input asp-for="Discount" class="form-control" type="number" step="0.1" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <label class="form-label">Available Today</label>
-                <input asp-for="AvailableToday" type="checkbox" class="form-check-input" />
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Is Non-Veg</label>
-                <input asp-for="IsNonVeg" type="checkbox" class="form-check-input" />
-            </div>
-        </div>
-
         <h4>Ingredients</h4>
         <div id="ingredientsList">
             <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Ingredient</button>
         </div>
 
-        <h4>Images</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <input type="file" name="ImageFiles" multiple class="form-control" accept="image/*" />
-            </div>
-        </div>
-
         <h4>Food Items</h4>
         <div id="foodItemsList">
             <button type="button" class="btn btn-primary" onclick="addFoodItem()">Add Food Item</button>
+        </div>
+
+        <h4>Images</h4>
+        <div id="imagesList">
+            <button type="button" class="btn btn-primary" onclick="addImage()">Add Image</button>
         </div>
 
         <div class="row mt-3">
@@ -103,25 +71,37 @@
     <script>
         function addIngredient() {
             let container = document.getElementById("ingredientsList");
-            let input = document.createElement("input");
-            input.type = "text";
-            input.name = "Ingredients[]";
-            input.classList.add("form-control", "mt-2");
-            input.placeholder = "Ingredient Name";
-            container.appendChild(input);
+            let select = document.createElement("select");
+            select.name = "Ingredients[]";
+            select.classList.add("form-control", "mt-2");
+            select.innerHTML = `<option value="1">Ingredient 1</option><option value="2">Ingredient 2</option>`;
+            container.appendChild(select);
         }
-        
+
         function addFoodItem() {
             let container = document.getElementById("foodItemsList");
-            let input = document.createElement("input");
-            input.type = "text";
-            input.name = "FoodItems[]";
-            input.classList.add("form-control", "mt-2");
-            input.placeholder = "Food Item Name";
-            container.appendChild(input);
+            let div = document.createElement("div");
+            div.classList.add("d-flex", "gap-2", "mt-2");
+            div.innerHTML = `
+                <select name="FoodItems[]" class="form-control">
+                    <option value="1">Food Item 1</option>
+                    <option value="2">Food Item 2</option>
+                </select>
+                <input type="number" name="FoodItemQuantity[]" class="form-control" placeholder="Quantity" />
+                <input type="text" name="FoodItemWeight[]" class="form-control" placeholder="Weight" />
+            `;
+            container.appendChild(div);
+        }
+
+        function addImage() {
+            let container = document.getElementById("imagesList");
+            let div = document.createElement("div");
+            div.classList.add("d-flex", "gap-2", "mt-2");
+            div.innerHTML = `
+                <input type="text" name="ImageUrl[]" class="form-control" placeholder="Image URL" />
+                <input type="text" name="ImageTitle[]" class="form-control" placeholder="Title" />
+            `;
+            container.appendChild(div);
         }
     </script>
-
-    <partial name="_ValidationScriptsPartial" />
 }
-

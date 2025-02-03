@@ -33,8 +33,8 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         public async Task<ActionResult<IList<FoodMaster>>> GetTemplatesList()
         {
             var dishes = await _repository.GetFoodItemsList();
-            _response.Result = dishes; // _mapper.Map<IEnumerable<FoodModelDto>>(dishes);
-            
+            _response.Result = _mapper.Map<IEnumerable<FoodModelDto>>(dishes);
+
             return Ok(_response);
         }
 
@@ -43,7 +43,7 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         {
             if (dto == null) return BadRequest("Invalid request data");
 
-             var foodMaster = await _repository.CreateAsync(dto);
+            var foodMaster = await _repository.CreateAsync(dto);
             return CreatedAtAction(nameof(Create), new { id = foodMaster.Id }, foodMaster);
         }
 
