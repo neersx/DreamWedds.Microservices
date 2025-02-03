@@ -5,6 +5,20 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7167")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -26,6 +40,8 @@ builder.Services.AddSwaggerGen(c =>
 
 
 var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

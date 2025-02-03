@@ -42,9 +42,14 @@
         </div>
 
         <h4>Ingredients</h4>
-        <div id="ingredientsList">
-            <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Ingredient</button>
+        <div class="row">
+            <div class="col-md-12">
+                <select id="ingredientsDropdown" class="form-control" multiple>
+                    <option value="">Loading ingredients...</option>
+                </select>
+            </div>
         </div>
+
 
         <h4>Food Items</h4>
         <div id="foodItemsList">
@@ -69,13 +74,25 @@
 
 @section Scripts {
     <script>
-        function addIngredient() {
-            let container = document.getElementById("ingredientsList");
-            let select = document.createElement("select");
-            select.name = "Ingredients[]";
-            select.classList.add("form-control", "mt-2");
-            select.innerHTML = `<option value="1">Ingredient 1</option><option value="2">Ingredient 2</option>`;
-            container.appendChild(select);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchIngredients();
+        });
+
+          function fetchIngredients() {
+            fetch("https://localhost:7000/api/ingredients")
+                .then(response => response.json())
+                .then(data => {
+                    let dropdown = document.getElementById("ingredientsDropdown");
+                    dropdown.innerHTML = "";
+                    data.forEach(ingredient => {
+                        let option = document.createElement("option");
+                        option.value = ingredient.id;
+                        option.textContent = ingredient.name;
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error loading ingredients:", error));
         }
 
         function addFoodItem() {
