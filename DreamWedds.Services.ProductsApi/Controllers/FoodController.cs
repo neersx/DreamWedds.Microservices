@@ -43,8 +43,8 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         {
             if (dto == null) return BadRequest("Invalid request data");
 
-            var foodMaster = await _repository.CreateAsync(dto);
-            return CreatedAtAction(nameof(Create), new { id = foodMaster.Id }, foodMaster);
+            _response.Result = await _repository.CreateAsync(dto);
+            return Ok(_response);
         }
 
         [HttpPut]
@@ -52,8 +52,8 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         {
             if (dto == null) return BadRequest("Invalid request data");
 
-            var foodMaster = await _repository.CreateAsync(dto);
-            return CreatedAtAction(nameof(Create), new { id = foodMaster.Id }, foodMaster);
+            _response.Result = await _repository.UpdateAsync(dto);
+            return Ok(_response);
         }
 
 
@@ -61,7 +61,7 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         public async Task<IActionResult> GetFoodById(string id)
         {
             var details = await _repository.GetByIdAsync(id);
-            _response.Result = _mapper.Map<FoodModelDto>(details);
+            _response.Result = details;
 
             if (_response.Result == null)
             {

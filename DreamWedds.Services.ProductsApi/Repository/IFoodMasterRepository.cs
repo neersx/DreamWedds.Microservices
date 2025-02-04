@@ -9,6 +9,7 @@ namespace DreamWedds.Services.ProductsApi.Repository
         Task<IEnumerable<FoodMaster>> GetFoodItemsList();
         Task<FoodMaster> GetByIdAsync(string id);
         Task<FoodMaster> CreateAsync(CreateFoodMasterDto food);
+        Task<bool> UpdateAsync(CreateFoodMasterDto food);
         IMongoCollection<FoodResponseModel> GetFoodByCategory(string category);
 
     }

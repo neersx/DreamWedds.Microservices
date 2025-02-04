@@ -4,6 +4,17 @@ namespace DreamWedds.Services.ProductsApi.Models
 {
     public class CreateFoodMasterDto
     {
+        public CreateFoodMasterDto(string title)
+        {
+            Name = title.Replace(' ', '-').ToLower();
+            Title = title;
+        }
+        public CreateFoodMasterDto()
+        {
+            
+        }
+
+        public string? Id { get; set; }
         public required string Name { get; set; }
         public required string Title { get; set; }
         public string? BestSeason { get; set; }
@@ -23,8 +34,22 @@ namespace DreamWedds.Services.ProductsApi.Models
 
         public List<string> IngredientIds { get; set; } = [];
         public List<FoodImage> Images { get; set; } = [];
-        public List<FoodItem> FoodItems { get; set; } = [];
+        public List<CreateFoodItemsDto> FoodItems { get; set; } = [];
         public List<string> FoodItemIds { get; set; } = [];
+    }
+
+    public class CreateFoodItemsDto
+    {
+        public string? Id { get; set; }
+        public int? Quantity { get; set; }
+        public string? Weight { get; set; }
+    }
+
+    public class CreateFoodImageDto
+    {
+        public string? Id { get; set; }
+        public string? Title { get; set; }
+        public string? Url { get; set; }
     }
 
 }
