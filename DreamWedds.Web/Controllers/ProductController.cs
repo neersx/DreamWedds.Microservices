@@ -40,8 +40,36 @@ namespace DreamWedds.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProductCreate(ProductDto model)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> ProductCreate([FromForm] FoodMasterDto model)
         {
+            // Process Ingredients
+            var selectedIngredients = Request.Form["Ingredients[]"].ToList();
+
+            // Process Images
+            var images = Request.Form["Images[]"]
+                                .Select(i => JsonConvert.DeserializeObject<Image>(i))
+                                .ToList();
+
+            // Process FoodItems
+            var foodItems = new List<FoodItem>();
+            var foodItemsRaw = Request.Form["FoodItems[]"].ToList();
+
+            foreach (var item in foodItemsRaw)
+            {
+                if (item.StartsWith("{")) // If JSON string, deserialize it
+                {
+                    FoodItem foodItem = JsonConvert.DeserializeObject<FoodItem>(item);
+
+
+                    if (foodItem != null)
+                    {
+                        foodItems.Add(foodItem);
+                    }
+                }
+            }
+
+
             if (ModelState.IsValid)
             {
                 ResponseDto? response = await _productService.CreateProductsAsync(model);
@@ -78,7 +106,7 @@ namespace DreamWedds.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ProductDelete(ProductDto productDto)
         {
-            ResponseDto? response = await _productService.DeleteProductsAsync(productDto.ProductId);
+            ResponseDto? response = await _productService.DeleteProductsAsync(productDto.Id);
 
             if (response != null && response.IsSuccess)
             {

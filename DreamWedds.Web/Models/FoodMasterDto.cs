@@ -12,7 +12,7 @@
             Title = title;
         }
         public string? Id { get; set; }
-        public required string Name { get; set; }
+        public required string? Name { get; set; }
         public required string Title { get; set; }
         public string? BestSeason { get; set; }
         public bool IsNonVeg { get; set; }

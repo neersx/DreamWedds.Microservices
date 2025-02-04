@@ -74,7 +74,7 @@ namespace DreamWedds.Web.Controllers
             CartDetailsDto cartDetails = new CartDetailsDto()
             {
                 Count = productDto.Count,
-                ProductId = productDto.ProductId,
+                ProductId = productDto.Id,
             };
 
             List<CartDetailsDto> cartDetailsDtos = new() { cartDetails};

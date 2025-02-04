@@ -12,7 +12,7 @@ namespace DreamWedds.Web.Service
             _baseService = baseService;
         }
 
-        public async Task<ResponseDto?> CreateProductsAsync(ProductDto productDto)
+        public async Task<ResponseDto?> CreateProductsAsync(FoodMasterDto productDto)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
