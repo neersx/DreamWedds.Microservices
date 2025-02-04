@@ -206,7 +206,7 @@
                 let weight = div.querySelector("input[name='FoodItemWeight[]']").value;
 
                 if (foodItem) {
-                    formData.append("FoodItems[]", JSON.stringify({ FoodItemId: foodItem, Quantity: quantity, Weight: weight }));
+                    formData.append("FoodItems[]", JSON.stringify({ Id: foodItem, Quantity: quantity, Weight: weight }));
                 }
             });
 

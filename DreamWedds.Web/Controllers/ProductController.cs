@@ -3,6 +3,7 @@ using DreamWedds.Web.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace DreamWedds.Web.Controllers
 {
@@ -114,15 +115,28 @@ namespace DreamWedds.Web.Controllers
             // Process Ingredients
             var selectedIngredients = Request.Form["Ingredients[]"].ToList();
 
-            // Process FoodItems
-            var foodItems = Request.Form["FoodItems[]"]
-                                .Select(f => JsonConvert.DeserializeObject<FoodItem>(f))
-                                .ToList();
-
             // Process Images
             var images = Request.Form["Images[]"]
                                 .Select(i => JsonConvert.DeserializeObject<Image>(i))
                                 .ToList();
+
+            // Process FoodItems
+            var foodItems = new List<FoodItem>();
+            var foodItemsRaw = Request.Form["FoodItems[]"].ToList();
+
+            foreach (var item in foodItemsRaw)
+            {
+                if (item.StartsWith("{")) // If JSON string, deserialize it
+                {
+                    FoodItem foodItem = JsonConvert.DeserializeObject<FoodItem>(item);
+                   
+
+                    if (foodItem != null)
+                    {
+                        foodItems.Add(foodItem);
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {

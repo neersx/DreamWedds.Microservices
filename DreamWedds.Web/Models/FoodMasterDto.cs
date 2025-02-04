@@ -2,7 +2,16 @@
 {
     public class FoodMasterDto
     {
-        public string Id { get; set; }
+        public FoodMasterDto()
+        {
+                
+        }
+        public FoodMasterDto(string title)
+        {
+            Name = title.Replace(' ', '-').ToLower();
+            Title = title;
+        }
+        public string? Id { get; set; }
         public required string Name { get; set; }
         public required string Title { get; set; }
         public string? BestSeason { get; set; }
@@ -30,12 +39,23 @@
 
     public class Ingredient
     {
+        public string? Id { get; set; }
         public required string Name { get; set; }
         public required string HealthBenefits { get; set; }
     }
 
     public class Image
     {
+        public Image()
+        {
+          
+        }
+        public Image(string title )
+        {
+            Name = title.Replace(' ', '-').ToLower();
+            Title = title;
+        }
+        public string? Id { get; set; }
         public required string Name { get; set; }
         public string? Title { get; set; }
         public string? Url { get; set; }
@@ -43,9 +63,10 @@
 
     public class FoodItem
     {
+        public string? Id { get; set; }
         public required string Name { get; set; }
-        public int? Quantity { get; set; }
-        public bool IsRequired { get; set; }
+        public int? Quantity { get; set; } = 0;
+        public bool IsRequired { get; set; } = false;
         public bool AvailableToday { get; set; } = false;
         public string? Weight { get; set; }
         public string? Description { get; set; }
