@@ -108,8 +108,22 @@ namespace DreamWedds.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProductEdit(FoodMasterDto productDto)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> ProductEdit([FromForm] FoodMasterDto productDto)
         {
+            // Process Ingredients
+            var selectedIngredients = Request.Form["Ingredients[]"].ToList();
+
+            // Process FoodItems
+            var foodItems = Request.Form["FoodItems[]"]
+                                .Select(f => JsonConvert.DeserializeObject<FoodItem>(f))
+                                .ToList();
+
+            // Process Images
+            var images = Request.Form["Images[]"]
+                                .Select(i => JsonConvert.DeserializeObject<Image>(i))
+                                .ToList();
+
             if (ModelState.IsValid)
             {
                 ResponseDto? response = await _productService.UpdateProductsAsync(productDto);
@@ -124,7 +138,7 @@ namespace DreamWedds.Web.Controllers
                     TempData["error"] = response?.Message;
                 }
             }
-            return View(productDto);
+            return Json(new { success = true, message = "Product updated successfully!" });
         }
 
     }

@@ -9,6 +9,6 @@ namespace DreamWedds.Services.ProductsApi.Repository
         public Task CreateAsync(FoodItem foodItem);
         Task UpdateAsync(string id, FoodItem foodItem);
         Task DeleteAsync(string id);
-        Task<List<FoodItem>> GetByIdsAsync(IEnumerable<string> ids);
+        Task<List<FoodItem>> GetByIdsAsync(IEnumerable<string> foodItems);
     }
 }

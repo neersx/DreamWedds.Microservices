@@ -23,6 +23,7 @@ namespace DreamWedds.Services.ProductsApi.Models
 
         public List<string> IngredientIds { get; set; } = [];
         public List<FoodImage> Images { get; set; } = [];
+        public List<FoodItem> FoodItems { get; set; } = [];
         public List<string> FoodItemIds { get; set; } = [];
     }
 

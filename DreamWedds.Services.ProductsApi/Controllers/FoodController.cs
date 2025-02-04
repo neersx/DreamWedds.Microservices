@@ -39,6 +39,7 @@ namespace DreamWedds.Services.ProductsApi.Controllers
         }
 
         [HttpPost]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromBody] CreateFoodMasterDto dto)
         {
             if (dto == null) return BadRequest("Invalid request data");

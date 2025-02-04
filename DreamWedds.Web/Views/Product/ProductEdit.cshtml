@@ -1,6 +1,6 @@
 ﻿@model FoodMasterDto
 
-<form asp-action="ProductEdit" enctype="multipart/form-data">
+<form asp-action="ProductEdit" enctype="multipart/form-data" method="post">
     <div class="container border p-3">
         <h1 class="text-center">Food Master Form</h1>
         <input type="hidden" asp-for="Id" />
@@ -77,38 +77,95 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             fetchIngredients();
+
+                    // Handle form submission
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+            submitForm();
         });
 
-          function fetchIngredients() {
-            fetch("https://localhost:7000/api/ingredients")
-                .then(response => response.json())
-                .then(data => {
-                    let dropdown = document.getElementById("ingredientsDropdown");
-                    dropdown.innerHTML = "";
-                    data.forEach(ingredient => {
-                        let option = document.createElement("option");
-                        option.value = ingredient.id;
-                        option.textContent = ingredient.name;
-                        dropdown.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("Error loading ingredients:", error));
-        }
+        });
 
-        function addFoodItem() {
+        function fetchIngredients() {
+                 fetch("https://localhost:7000/api/ingredients")
+                     .then(response => response.json())
+                     .then(data => {
+                         let dropdown = document.getElementById("ingredientsDropdown");
+                         dropdown.innerHTML = "";
+                         data.forEach(ingredient => {
+                             let option = document.createElement("option");
+                             option.value = ingredient.id;
+                             option.textContent = ingredient.name;
+                             dropdown.appendChild(option);
+                         });
+
+                         // Initialize Bootstrap Multiselect
+                         $('#ingredientsDropdown').multiselect({
+                             includeSelectAllOption: true,
+                             enableFiltering: true,
+                             buttonWidth: '100%',
+                             nonSelectedText: 'Select Ingredients',
+                             selectAllText: 'Select All',
+                             allSelectedText: 'All Selected'
+                         });
+                     })
+                     .catch(error => console.error("Error loading ingredients:", error));
+             }
+
+          function addFoodItem() {
             let container = document.getElementById("foodItemsList");
             let div = document.createElement("div");
             div.classList.add("d-flex", "gap-2", "mt-2");
-            div.innerHTML = `
-                <select name="FoodItems[]" class="form-control">
-                    <option value="1">Food Item 1</option>
-                    <option value="2">Food Item 2</option>
-                </select>
-                <input type="number" name="FoodItemQuantity[]" class="form-control" placeholder="Quantity" />
-                <input type="text" name="FoodItemWeight[]" class="form-control" placeholder="Weight" />
-            `;
+
+            let select = document.createElement("select");
+            select.name = "FoodItems[]";
+            select.classList.add("form-control");
+
+            let quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.name = "FoodItemQuantity[]";
+            quantityInput.classList.add("form-control");
+            quantityInput.placeholder = "Quantity";
+
+            let weightInput = document.createElement("input");
+            weightInput.type = "text";
+            weightInput.name = "FoodItemWeight[]";
+            weightInput.classList.add("form-control");
+            weightInput.placeholder = "Weight";
+
+            // Default loading option
+            let loadingOption = document.createElement("option");
+            loadingOption.textContent = "Loading food items...";
+            loadingOption.disabled = true;
+            loadingOption.selected = true;
+            select.appendChild(loadingOption);
+
+            // Append elements to div
+            div.appendChild(select);
+            div.appendChild(quantityInput);
+            div.appendChild(weightInput);
             container.appendChild(div);
+
+            // Fetch food items from API and update the dropdown
+            fetch("https://localhost:7000/api/fooditems")
+                .then(response => response.json())
+                .then(data => {
+                    select.innerHTML = ""; // Clear loading option
+
+                    // Add food item options dynamically
+                    data.forEach(item => {
+                        let option = document.createElement("option");
+                        option.value = item.id;
+                        option.textContent = item.name;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading food items:", error);
+                    select.innerHTML = "<option disabled>Error loading food items</option>";
+                });
         }
+
 
         function addImage() {
             let container = document.getElementById("imagesList");
@@ -120,5 +177,67 @@
             `;
             container.appendChild(div);
         }
+
+                // Function to collect form data and submit via AJAX
+        function submitForm() {
+                  let form = document.querySelector("form"); // Ensure the form is selected correctly
+        let formData = new FormData(form);
+
+            // Get basic fields
+            formData.append("Id", document.querySelector("input[name='Id']").value);
+            formData.append("Name", document.querySelector("input[name='Name']").value);
+            formData.append("Title", document.querySelector("input[name='Title']").value);
+            formData.append("BestSeason", document.querySelector("input[name='BestSeason']").value);
+            formData.append("Region", document.querySelector("input[name='Region']").value);
+            formData.append("Category", document.querySelector("input[name='Category']").value);
+            formData.append("Description", document.querySelector("textarea[name='Description']").value);
+
+            // Get selected ingredients (multiple select dropdown)
+            let selectedIngredients = $("#ingredientsDropdown").val();
+            if (selectedIngredients) {
+                selectedIngredients.forEach(id => formData.append("Ingredients[]", id));
+            }
+
+            // Get food items with quantities and weights
+            let foodItems = document.querySelectorAll("#foodItemsList div");
+            foodItems.forEach(div => {
+                let foodItem = div.querySelector("select").value;
+                let quantity = div.querySelector("input[name='FoodItemQuantity[]']").value;
+                let weight = div.querySelector("input[name='FoodItemWeight[]']").value;
+
+                if (foodItem) {
+                    formData.append("FoodItems[]", JSON.stringify({ FoodItemId: foodItem, Quantity: quantity, Weight: weight }));
+                }
+            });
+
+            // Get images
+            let images = document.querySelectorAll("#imagesList div");
+            images.forEach(div => {
+                let url = div.querySelector("input[name='ImageUrl[]']").value;
+                let title = div.querySelector("input[name='ImageTitle[]']").value;
+
+                if (url) {
+                    formData.append("Images[]", JSON.stringify({ Url: url, Title: title }));
+                }
+            });
+
+        // Send AJAX request
+         fetch(form.action, {
+             method: "POST",
+             body: formData
+         })
+         .then(response => {
+             if (!response.ok) {
+                 throw new Error("Network response was not ok");
+             }
+             return response.json();
+         })
+         .then(data => {
+             alert("Form submitted successfully!");
+             window.location.href = "/your-success-page"; // Redirect on success
+         })
+         .catch(error => console.error("Error:", error));
+        }
+
     </script>
 }
