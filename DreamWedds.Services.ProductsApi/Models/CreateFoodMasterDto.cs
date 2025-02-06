@@ -43,6 +43,12 @@ namespace DreamWedds.Services.ProductsApi.Models
         public string? Id { get; set; }
         public int? Quantity { get; set; }
         public string? Weight { get; set; }
+        public string? Name { get; set; }
+        public bool IsRequired { get; set; }
+        public bool AvailableToday { get; set; } = false;
+        public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
+
     }
 
     public class CreateFoodImageDto

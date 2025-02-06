@@ -85,7 +85,7 @@ namespace DreamWedds.Services.ProductsApi.Repository
 
             var ingredients = await _ingredientRepository.GetByIdsAsync(dto.IngredientIds);
             var foodItems = await _foodItemRepository.GetByIdsAsync(dto.FoodItems.Select(x => x.Id).ToArray());
-            foodItems = _mapper.Map(dto.FoodItems, foodItems);
+            //_mapper.Map(dto.FoodItems, foodItems);
             var filter = Builders<FoodMaster>.Filter.Eq(f => f.Id, dto.Id);
 
             var update = Builders<FoodMaster>.Update
@@ -107,7 +107,7 @@ namespace DreamWedds.Services.ProductsApi.Repository
                 .Set(f => f.Ingredients, ingredients)  // List of Ingredients
                 .Set(f => f.Images, dto.Images)  // List of Images
                 .Set(f => f.FoodItems, foodItems)  // List of FoodItems
-                .Set(f => f.LastUpdatedOn, DateTime.UtcNow)
+                .Set(f => f.LastUpdatedOn, DateTime.UtcNow)                                                                                                                                                                                   
                 .Set(f => f.IsDeleted, false);
 
             var result = await _context.Dishes.UpdateOneAsync(filter, update);
