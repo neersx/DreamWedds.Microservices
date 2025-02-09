@@ -2,7 +2,7 @@
 {
     public class FoodModelDto
     {
-        public string ProductId { get; set; }  // Maps from FoodMaster's Id
+        public string Id { get; set; }  // Maps from FoodMaster's Id
         public string Name { get; set; }
         public string Title { get; set; }
         public double Price { get; set; }

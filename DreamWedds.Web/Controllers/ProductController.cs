@@ -127,6 +127,7 @@ namespace DreamWedds.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 FoodMasterDto? model = JsonConvert.DeserializeObject<FoodMasterDto>(Convert.ToString(response.Result));
+         
                 return View(model);
             }
             else
