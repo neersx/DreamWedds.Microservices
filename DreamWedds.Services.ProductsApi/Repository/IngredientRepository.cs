@@ -30,10 +30,16 @@ namespace DreamWedds.Services.ProductsApi.Repository
         public async Task CreateAsync(Ingredient ingredient) =>
             await _context.Ingredients.InsertOneAsync(ingredient);
 
+        public async Task CreateManyAsync(List<Ingredient> ingredients) =>
+          await _context.Ingredients.InsertManyAsync(ingredients);
+
         public async Task UpdateAsync(string id, Ingredient ingredient) =>
             await _context.Ingredients.ReplaceOneAsync(i => i.Id == id, ingredient);
 
         public async Task DeleteAsync(string id) =>
             await _context.Ingredients.DeleteOneAsync(i => i.Id == id);
+
+        public async Task DeleteManyAsync(string id) =>
+        await _context.Ingredients.DeleteManyAsync(i => i.Id == id);
     }
 }

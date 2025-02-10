@@ -39,7 +39,7 @@ namespace DreamWedds.Services.ProductsApi.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]  // ✅ Ensure ObjectId mapping
-        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+        public string? Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         public required string Name { get; set; }
         public required string HealthBenefits { get; set; }

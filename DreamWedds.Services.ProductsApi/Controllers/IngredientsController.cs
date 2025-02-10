@@ -31,6 +31,16 @@ namespace DreamWedds.Services.ProductsApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = ingredient.Id }, ingredient);
         }
 
+        [HttpPost("many")]
+        public async Task<IActionResult> CreateMany([FromBody] List<Ingredient> ingredients)
+        {
+            if (ingredients == null || !ingredients.Any())
+                return BadRequest("Ingredient list cannot be empty.");
+
+            await _ingredientService.CreateManyAsync(ingredients);
+            return Ok(new { Message = "Ingredients inserted successfully." });
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] IngredientRequestDto dto)
         {
