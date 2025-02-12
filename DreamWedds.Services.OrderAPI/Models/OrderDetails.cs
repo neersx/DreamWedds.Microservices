@@ -11,7 +11,7 @@ namespace DreamWedds.Services.OrderAPI.Models
         public int OrderHeaderId { get; set; }
         [ForeignKey("OrderHeaderId")]
         public OrderHeader? OrderHeader { get; set; }
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         [NotMapped]
         public ProductDto? Product { get; set; }
         public int Count { get; set; }
