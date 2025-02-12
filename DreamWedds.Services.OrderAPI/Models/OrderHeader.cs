@@ -10,7 +10,7 @@ namespace DreamWedds.Services.OrderAPI.Models
         public string? CouponCode { get; set; }
         public double Discount { get; set; }
         public double OrderTotal { get; set; }
-
+        public string? ClientOrderId { get; set; }
 
         public string? Name { get; set; }
 

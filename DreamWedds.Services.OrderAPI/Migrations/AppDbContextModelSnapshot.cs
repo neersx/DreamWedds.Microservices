@@ -39,8 +39,9 @@ namespace DreamWedds.Services.OrderAPI.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -60,6 +61,9 @@ namespace DreamWedds.Services.OrderAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderHeaderId"));
+
+                    b.Property<string>("ClientOrderId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CouponCode")
                         .HasColumnType("nvarchar(max)");

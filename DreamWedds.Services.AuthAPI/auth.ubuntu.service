@@ -1,0 +1,19 @@
+sudo nano /etc/systemd/system/authservice.service
+
+
+[Unit]
+Description=AuthService .NET Application
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/services/auth-service
+ExecStart=/usr/bin/dotnet /var/www/services/auth-service/AuthService.dll
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=authservice
+User=www-data
+Environment=DOTNET_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target
