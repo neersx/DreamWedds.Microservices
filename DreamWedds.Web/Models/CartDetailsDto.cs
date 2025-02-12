@@ -5,7 +5,6 @@ namespace DreamWedds.Web.Models
     {
         public int CartDetailsId { get; set; }
         public int CartHeaderId { get; set; }
-        public CartHeaderDto? CartHeader { get; set; }
         public string ProductId { get; set; }
         public ProductDto? Product { get; set; }
         public int Count { get; set; }

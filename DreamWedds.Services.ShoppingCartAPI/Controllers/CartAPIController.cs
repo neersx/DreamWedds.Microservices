@@ -42,6 +42,8 @@ namespace DreamWedds.Services.ShoppingCartAPI.Controllers
                 {
                     CartHeader = _mapper.Map<CartHeaderDto>(_db.CartHeaders.First(u => u.UserId == userId))
                 };
+
+                var details = await _db.CartDetails.Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId).FirstOrDefaultAsync();
                 cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails
                     .Where(u=>u.CartHeaderId==cart.CartHeader.CartHeaderId));
 
@@ -49,7 +51,7 @@ namespace DreamWedds.Services.ShoppingCartAPI.Controllers
 
                 foreach (var item in cart.CartDetails)
                 {
-                    item.Product = productDtos.FirstOrDefault(u => u.ProductId == item.ProductId);
+                    item.Product = productDtos.FirstOrDefault(u => u.Id == item.ProductId);
                     cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
                 }
 
