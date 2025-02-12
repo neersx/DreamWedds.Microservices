@@ -26,11 +26,11 @@ namespace DreamWedds.Services.AuthAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDto model)
         {
 
-            var errorMessage = await _authService.Register(model);
-            if (!string.IsNullOrEmpty(errorMessage))
+            var result = await _authService.Register(model);
+            if (!result.Succeeded)
             {
                 _response.IsSuccess = false;
-                _response.Message= errorMessage;
+                _response.Message= "Something went wrong";
                 return BadRequest(_response);
             }
             //await _messageBus.PublishMessage(model.Email, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"));

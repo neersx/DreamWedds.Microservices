@@ -24,9 +24,9 @@ namespace DreamWedds.Services.AuthAPI.Service
 
             var claimList = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email,applicationUser.Email),
+                new Claim(JwtRegisteredClaimNames.UniqueName,applicationUser.UserName),
                 new Claim(JwtRegisteredClaimNames.Sub,applicationUser.Id),
-                new Claim(JwtRegisteredClaimNames.Name,applicationUser.UserName)
+                new Claim(JwtRegisteredClaimNames.Name,applicationUser.Name)
             };
 
             claimList.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));

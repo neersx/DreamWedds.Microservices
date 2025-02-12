@@ -1,0 +1,6 @@
+@DreamWedds.Services.MobileAuthApi_HostAddress = http://localhost:5014
+
+GET {{DreamWedds.Services.MobileAuthApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
