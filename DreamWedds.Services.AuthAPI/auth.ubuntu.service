@@ -2,12 +2,12 @@ sudo nano /etc/systemd/system/authservice.service
 
 
 [Unit]
-Description=AuthService .NET Application
+Description=Auth Service .NET Application
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/services/auth-service
-ExecStart=/usr/bin/dotnet /var/www/services/auth-service/AuthService.dll
+WorkingDirectory=/var/www/services/auth
+ExecStart=/usr/bin/dotnet /var/www/services/auth/DreamWedds.Services.AuthAPI.dll
 Restart=always
 RestartSec=10
 KillSignal=SIGINT

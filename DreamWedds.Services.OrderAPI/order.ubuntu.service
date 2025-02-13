@@ -6,8 +6,8 @@ Description=Order Service .NET Application
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/services/order-service
-ExecStart=/usr/bin/dotnet /var/www/services/order-service/OrderService.dll
+WorkingDirectory=/var/www/services/orders
+ExecStart=/usr/bin/dotnet /var/www/services/orders/DreamWedds.Services.OrderAPI.dll
 Restart=always
 RestartSec=10
 KillSignal=SIGINT

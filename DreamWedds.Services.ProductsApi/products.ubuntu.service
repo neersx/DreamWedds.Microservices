@@ -5,8 +5,8 @@ Description=ProductService .NET Application
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/services/product-service
-ExecStart=/usr/bin/dotnet /var/www/services/product-service/ProductService.dll
+WorkingDirectory=/var/www/services/products
+ExecStart=/usr/bin/dotnet /var/www/services/products/DreamWedds.Services.ProductsApi.dll
 Restart=always
 RestartSec=10
 KillSignal=SIGINT

@@ -2,12 +2,12 @@ sudo nano /etc/systemd/system/cartservice.service
 
 
 [Unit]
-Description=Cart Service .NET Application
+Description=Shopping Cart Service .NET Application
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/services/cart-service
-ExecStart=/usr/bin/dotnet /var/www/services/cart-service/CartService.dll
+WorkingDirectory=/var/www/services/shoppingCart
+ExecStart=/usr/bin/dotnet /var/www/services/shoppingCart/DreamWedds.Services.ShoppingCartAPI.dll
 Restart=always
 RestartSec=10
 KillSignal=SIGINT
