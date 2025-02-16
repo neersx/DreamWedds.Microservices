@@ -5,17 +5,17 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Add CORS policy
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? ["*"];
 // Add CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        policy =>
-        {
-            policy.WithOrigins("https://localhost:7167")
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-        });
+    options.AddPolicy("AllowSpecificOrigins", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
 
@@ -41,7 +41,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("AllowSpecificOrigins");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

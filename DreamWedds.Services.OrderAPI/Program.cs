@@ -8,13 +8,22 @@ using DreamWedds.Services.ShoppingCartAPI.Service;
 using DreamWedds.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add CORS policy
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? ["*"];
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
@@ -62,6 +71,7 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseCors("AllowSpecificOrigins");
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI(c =>
