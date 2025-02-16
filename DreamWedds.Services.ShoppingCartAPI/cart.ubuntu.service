@@ -1,13 +1,19 @@
 sudo nano /etc/systemd/system/cartservice.service
 
+sudo systemctl stop  cartservice.service 
+dotnet publish --output /var/www/services/cart
+sudo systemctl start  cartservice.service  
+sudo systemctl status  cartservice.service 
+sudo journalctl -u cartservice.service -f
+
 
 [Unit]
 Description=Shopping Cart Service .NET Application
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/services/shoppingCart
-ExecStart=/usr/bin/dotnet /var/www/services/shoppingCart/DreamWedds.Services.ShoppingCartAPI.dll
+WorkingDirectory=/var/www/services/cart
+ExecStart=/usr/bin/dotnet /var/www/services/cart/DreamWedds.Services.ShoppingCartAPI.dll
 Restart=always
 RestartSec=10
 KillSignal=SIGINT

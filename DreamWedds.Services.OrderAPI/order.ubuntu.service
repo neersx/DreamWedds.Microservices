@@ -1,5 +1,11 @@
 sudo nano /etc/systemd/system/orderservice.service
 
+sudo systemctl stop  orderservice.service 
+dotnet publish --output /var/www/services/orders
+sudo systemctl start  orderservice.service  
+sudo systemctl status  orderservice.service 
+sudo journalctl -u orderservice.service -f
+
 
 [Unit]
 Description=Order Service .NET Application
