@@ -1,0 +1,92 @@
+sudo nano /var/www/deploy_one.sh
+sudo chmod +x /var/www/deploy_one.sh
+
+
+sudo /var/www/deploy_one.sh productservice
+
+
+#!/bin/bash
+
+# Set Variables
+REPO_PATH="/var/source/ApiServices/DreamWedds.Microservices"
+DOTNET_PATH="/usr/bin/dotnet"
+SERVICE_DIR="/var/www/services"
+
+# Define services and their respective deployment folders & ports
+declare -A SERVICES
+SERVICES=(
+    ["authservice"]="$SERVICE_DIR/auth 7002"
+    ["cartservice"]="$SERVICE_DIR/cart 7003"
+    ["orderservice"]="$SERVICE_DIR/orders 7004"
+    ["productservice"]="$SERVICE_DIR/products 7000"
+)
+
+# Check if a service name was provided
+if [ -z "$1" ]; then
+    echo "❌ ERROR: No service name provided!"
+    echo "Usage: sudo ./deploy_service.sh <service_name>"
+    echo "Available services: ${!SERVICES[@]}"
+    exit 1
+fi
+
+SERVICE_NAME=$1
+
+# Validate if the provided service exists
+if [[ -z "${SERVICES[$SERVICE_NAME]}" ]]; then
+    echo "❌ ERROR: Invalid service name '$SERVICE_NAME'."
+    echo "Available services: ${!SERVICES[@]}"
+    exit 1
+fi
+
+# Extract deployment path and port from the dictionary
+DEPLOYMENT_INFO=(${SERVICES[$SERVICE_NAME]})
+DEPLOY_PATH=${DEPLOYMENT_INFO[0]}
+PORT=${DEPLOYMENT_INFO[1]}
+
+echo "Starting deployment for $SERVICE_NAME..."
+
+# Pull the latest code
+echo "Pulling latest code from master..."
+cd "$REPO_PATH" || { echo "Repo path not found!"; exit 1; }
+git reset --hard
+git pull origin master
+
+# Build the solution
+echo "Building the project..."
+$DOTNET_PATH clean
+$DOTNET_PATH build --configuration Release || { echo "Build failed!"; exit 1; }
+
+# Deploy the selected service
+echo "Deploying $SERVICE_NAME..."
+
+# Publish the service
+$DOTNET_PATH publish -c Release -o "$DEPLOY_PATH" || { echo "Publish failed for $SERVICE_NAME!"; exit 1; }
+
+# Set correct permissions
+chown -R www-data:www-data "$DEPLOY_PATH"
+chmod -R 755 "$DEPLOY_PATH"
+
+# Restart the service
+echo "Restarting $SERVICE_NAME..."
+systemctl restart "$SERVICE_NAME.service"
+
+# Check service status
+if systemctl is-active --quiet "$SERVICE_NAME.service"; then
+    echo "$SERVICE_NAME is running"
+else
+    echo "❌ ERROR: $SERVICE_NAME failed to start!"
+    exit 1
+fi
+
+# Wait a few seconds before testing
+sleep 5
+
+# Check if the service is responding
+if curl -s --head --request GET "http://localhost:$PORT" | grep "200 OK" > /dev/null; then
+    echo "✅ $SERVICE_NAME (Port $PORT) is responding."
+else
+    echo "❌ ERROR: $SERVICE_NAME (Port $PORT) is NOT responding!"
+    exit 1
+fi
+
+echo "✅ Deployment for $SERVICE_NAME completed successfully!"
