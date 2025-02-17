@@ -3,6 +3,9 @@ sudo chmod +x /var/www/deploy_one.sh
 
 
 sudo /var/www/deploy_one.sh productservice
+sudo /var/www/deploy_one.sh cartservice
+sudo /var/www/deploy_one.sh orderservice
+sudo /var/www/deploy_one.sh authservice
 
 
 #!/bin/bash
@@ -40,6 +43,7 @@ fi
 
 # Extract deployment path and port from the dictionary
 DEPLOYMENT_INFO=(${SERVICES[$SERVICE_NAME]})
+echo "Deployment started on folder : ${DEPLOYMENT_INFO[0]}"
 DEPLOY_PATH=${DEPLOYMENT_INFO[0]}
 PORT=${DEPLOYMENT_INFO[1]}
 
@@ -57,7 +61,7 @@ $DOTNET_PATH clean
 $DOTNET_PATH build --configuration Release || { echo "Build failed!"; exit 1; }
 
 # Deploy the selected service
-echo "Deploying $SERVICE_NAME..."
+echo "Deploying $SERVICE_NAME... to the $DEPLOY_PATH folder..."
 
 # Publish the service
 $DOTNET_PATH publish -c Release -o "$DEPLOY_PATH" || { echo "Publish failed for $SERVICE_NAME!"; exit 1; }
